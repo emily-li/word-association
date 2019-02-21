@@ -6,15 +6,20 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.TestContextManager
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.result.{MockMvcResultHandlers, MockMvcResultMatchers}
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class WordAssociationControllerIT extends FlatSpec {
+class WordAssociationControllerTest extends FlatSpec {
   new TestContextManager(getClass).prepareTestInstance(this)
 
   @Autowired var mockMvc: MockMvc = _
 
   "POST /wordassociation" should "return 200 with a word" in {
-    assert(mockMvc != null)
+    mockMvc
+      .perform(MockMvcRequestBuilders.get("/wordassociation"))
+      .andDo(MockMvcResultHandlers.print())
+      .andExpect(MockMvcResultMatchers.status.isOk)
   }
 }
