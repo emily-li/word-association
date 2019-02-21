@@ -1,16 +1,17 @@
 package com.liemily.wordassociation.web
 
+import org.junit.runner.RunWith
 import org.scalatest.FlatSpec
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.test.context.TestContextManager
+import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.{MockMvcResultHandlers, MockMvcResultMatchers}
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@RunWith(classOf[SpringRunner])
+@WebMvcTest
 class WordAssociationControllerTest extends FlatSpec {
   new TestContextManager(getClass).prepareTestInstance(this)
 
@@ -21,5 +22,6 @@ class WordAssociationControllerTest extends FlatSpec {
       .perform(MockMvcRequestBuilders.get("/wordassociation"))
       .andDo(MockMvcResultHandlers.print())
       .andExpect(MockMvcResultMatchers.status.isOk)
+      .andExpect(MockMvcResultMatchers.content.string("help"))
   }
 }
