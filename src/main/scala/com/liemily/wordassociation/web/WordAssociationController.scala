@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.{RequestMapping, RequestMethod, R
 class WordAssociationController {
   @RequestMapping(value = Array("/wordassociation"), method = Array(RequestMethod.POST))
   @ResponseBody
-  def blah(@RequestParam(required = true) word: String) = "help"
+  def getAssociatedWord(@RequestParam(required = true) word: String) = "help"
 }
