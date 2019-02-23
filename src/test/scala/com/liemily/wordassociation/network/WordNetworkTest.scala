@@ -9,13 +9,13 @@ class WordNetworkTest extends FlatSpec with Matchers {
     val network1 = WordNetwork(numRows, numCols)
     val network2 = WordNetwork(numRows, numCols)
 
-    network1.weights shouldNot contain theSameElementsAs network2.weights
-    network1.weights.length shouldBe numRows
-    network1.weights(0).length shouldBe numCols
-    network1.weights.foreach(_.foreach(
+    network1.inputWeights shouldNot contain theSameElementsAs network2.inputWeights
+    network1.inputWeights.length shouldBe numRows
+    network1.inputWeights(0).length shouldBe numCols
+    network1.inputWeights.foreach(_.foreach(
       weight => {
-        weight should be > 0.0
-        weight should be < 1.0
+        weight should be > WordNetwork.standardise(0.0, numCols)
+        weight should be < WordNetwork.standardise(1.0, numCols)
       }))
   }
 }
